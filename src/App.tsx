@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import ProductUpload from './pages/ProductUpload';
+import Products from './pages/Products';
 import './App.css';
+import AuthContextProvider from './AuthContext'
 
 function App() {
+  // 我们将整个Router放入新的组件中，以便能在Router内部访问context
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContextProvider>
+      <AppRouter />
+    </AuthContextProvider>
+  );
+}
+
+// 新建的AppRouter组件，这里是真正的Router部分
+function AppRouter() {
+  const { loggedIn } = useContext(AuthContext);  // 这次我们在Router内部访问context
+
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/upload" element={loggedIn ? <ProductUpload /> : <Login />} />
+        <Route path="/products" element={loggedIn ? <Products /> : <Login />} />
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 
 export default App;
+

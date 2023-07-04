@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+
+.navbar {
+  background-color: #63a6c598;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.navbar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.navbar li {
+  display: inline;
+  margin: 0 10px;
+}
+
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-size: larger;
+}
+
+.navbar a:hover {
+  color: #777;
+}
+
+.footer {
+  background-color: #D0F0FF;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
