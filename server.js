@@ -3,7 +3,7 @@ const cors = require('cors');
 const { pool } = require('./db');
 const path = require('path');
 const app = express();
-
+const PORT = process.env.PORT || 3000;
 const multer  = require('multer');
 
 const storage = multer.diskStorage({
@@ -81,7 +81,6 @@ app.get('/products', async (req, res) => {
 
 
 // 启动服务器
-app.listen(3001, () => {
-  console.log('Server is running on port 3001');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
-
