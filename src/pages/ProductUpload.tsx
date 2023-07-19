@@ -19,8 +19,8 @@ function ProductUpload() {
       preview: URL.createObjectURL(file)
     }) as PreviewFile));
   }
-  // @ts-ignore
-  const { getRootProps, getInputProps } = useDropzone({ accept: 'image/*', onDrop });
+ // @ts-ignore
+  const { getRootProps, getInputProps } = useDropzone({ accept: ['image/jpeg', 'image/png'], onDrop });
 
   const handleProductNameChange = (e: ChangeEvent<HTMLInputElement>) => setProductName(e.target.value);
   const handleProductTypeChange = (e: ChangeEvent<HTMLInputElement>) => setProductType(e.target.value);
@@ -28,10 +28,40 @@ function ProductUpload() {
   const handleProductDescriptionChange = (e: ChangeEvent<HTMLInputElement>) => setProductDescription(e.target.value);
   const handleProductPriceChange = (e: ChangeEvent<HTMLInputElement>) => setProductPrice(e.target.value);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(`Uploading product with name: ${productName}, type: ${productType}, stock: ${productStock}, description: ${productDescription}, price: ${productPrice}`);
-  }
+    const formData = new FormData();
+    formData.append('name', productName);
+    formData.append('type', productType);
+    formData.append('description', productDescription);
+    formData.append('price', productPrice);
+    formData.append('stock', productStock);
+    files.forEach(file => {
+      formData.append('file', file);
+    });
+  
+    try {
+      const response = await fetch('https://production-management-a2a43e9e1fb5.herokuapp.com/products', { // 修改了这里
+        method: 'POST',
+        body: formData, 
+      });
+      if (response.ok) {
+        alert('Product added');
+        setProductName('');
+        setProductType('');
+        setProductDescription('');
+        setProductPrice('');
+        setProductStock('');
+        setFiles([]);
+      } else {
+        alert('Server error');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Upload failed');
+    }
+  };
+  
 
   const thumbs = files.map((file: PreviewFile) => (
     <div key={file.name}>
@@ -65,7 +95,7 @@ function ProductUpload() {
           <input type="number" value={productPrice} onChange={handleProductPriceChange} />
         </label>
         <div {...getRootProps({className: 'dropzone'})}>
-          <input {...getInputProps()} />
+          <input {...getInputProps({ name: 'file' })} />
           <p>Drag 'n' drop some files here, or click to select files</p>
         </div>
         <aside>
@@ -78,3 +108,4 @@ function ProductUpload() {
 }
 
 export default ProductUpload;
+
