@@ -39,6 +39,19 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
+// Testing Database Connection
+app.get('/test-db', async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT 1');
+    client.release();
+    res.send('Database connection successful');
+  } catch (err) {
+    console.error(err);
+    res.send('Database connection error');
+  }
+});
+
 // DELETE /products/:id
 app.delete('/products/:id', async (req, res) => {
   const { id } = req.params;
@@ -66,7 +79,6 @@ app.post('/products', upload.single('file'), async (req, res) => {
   }
 });
 
-
 // GET /products
 app.get('/products', async (req, res) => {
   try {
@@ -78,7 +90,6 @@ app.get('/products', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-
 
 // 启动服务器
 app.listen(PORT, () => {
