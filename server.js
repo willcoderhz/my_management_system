@@ -32,15 +32,15 @@ app.use(cors());
 app.use(express.json());
 
 // Static file serving
-//app.use('/uploads', express.static('uploads'));
+app.use(express.static(path.join(__dirname, 'build')));
 
 //根目录
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Hello, API Server!');
 });
 
 // Testing Database Connection
-app.get('/test-db', async (req, res) => {
+app.get('/api/test-db', async (req, res) => {
   try {
     const client = await pool.connect();
     const result = await client.query('SELECT 1');
@@ -53,7 +53,7 @@ app.get('/test-db', async (req, res) => {
 });
 
 // DELETE /products/:id
-app.delete('/products/:id', async (req, res) => {
+app.delete('/api/products/:id', async (req, res) => {
   const { id } = req.params;
   try {
     await pool.query('DELETE FROM products WHERE id = $1', [id]);
@@ -65,7 +65,7 @@ app.delete('/products/:id', async (req, res) => {
 });
 
 // POST /products
-app.post('/products', upload.single('file'), async (req, res) => {
+app.post('/api/products', upload.single('file'), async (req, res) => {
   const product = req.body;
   let filePath = req.file.path;
   // 将路径分隔符从 \ 替换为 /
@@ -80,7 +80,7 @@ app.post('/products', upload.single('file'), async (req, res) => {
 });
 
 // GET /products
-app.get('/products', async (req, res) => {
+app.get('/api/products', async (req, res) => {
   try {
     const { rows } = await pool.query('SELECT * FROM products');
     rows.forEach(row => console.log(`Product ID: ${row.id}, Image Path: ${row.image_path}`));
@@ -89,6 +89,11 @@ app.get('/products', async (req, res) => {
     console.error(err);
     res.status(500).send('Server error');
   }
+});
+
+// Handle any requests that don't match the ones above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/build/index.html'));
 });
 
 // 启动服务器

@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useDropzone, DropzoneOptions, FileWithPath } from 'react-dropzone'; 
-import './ProductUpload.css'; // Import the CSS file
+import './ProductUpload.css';
 
 interface PreviewFile extends File {
   preview: string;
@@ -41,7 +41,7 @@ function ProductUpload() {
     });
   
     try {
-      const response = await fetch('https://production-management-a2a43e9e1fb5.herokuapp.com/products', { // 修改了这里
+      const response = await fetch('https://production-management-a2a43e9e1fb5.herokuapp.com/api/products', {
         method: 'POST',
         body: formData, 
       });
