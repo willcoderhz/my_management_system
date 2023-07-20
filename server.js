@@ -32,11 +32,11 @@ app.use(cors());
 app.use(express.json());
 
 // Static file serving
-app.use('/uploads', express.static('uploads'));
+//app.use('/uploads', express.static('uploads'));
 
 //根目录
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send('Hello, API Server!');
 });
 
 // Testing Database Connection
