@@ -36,9 +36,9 @@ function ProductUpload() {
     formData.append('description', productDescription);
     formData.append('price', productPrice);
     formData.append('stock', productStock);
-    files.forEach(file => {
-      formData.append('file', file);
-    });
+    if (files.length > 0) {
+      formData.append('file', files[0]); // just select the first file
+    }
   
     try {
       const response = await fetch('https://production-management-a2a43e9e1fb5.herokuapp.com/api/products', {
@@ -108,4 +108,5 @@ function ProductUpload() {
 }
 
 export default ProductUpload;
+
 
