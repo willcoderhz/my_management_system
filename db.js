@@ -1,10 +1,10 @@
 const { Pool } = require('pg');
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: isProduction ? { rejectUnauthorized: true } : { rejectUnauthorized: false } // 在生产环境中验证SSL证书，而在开发环境中忽略SSL证书验证
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 module.exports = { pool };
