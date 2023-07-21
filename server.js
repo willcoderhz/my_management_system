@@ -31,8 +31,8 @@ app.use(cors());
 // 使用express的json中间件来解析请求体
 app.use(express.json());
 
-// Static file serving
-//app.use(express.static(path.join(__dirname, 'build')));
+// Set "uploads" as a static folder
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //根目录
 app.get('/api', (req, res) => {
@@ -90,11 +90,6 @@ app.get('/api/products', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-
-// Handle any requests that don't match the ones above
-//app.get('*', (req, res) => {
-//res.sendFile(path.join(__dirname+'/build/index.html'));
-//});
 
 // 启动服务器
 app.listen(PORT, () => {
