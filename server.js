@@ -70,6 +70,8 @@ app.post('/api/products', upload.single('file'), async (req, res) => {
   let filePath = req.file.path;
   // 将路径分隔符从 \ 替换为 /
   filePath = path.normalize(filePath).split(path.sep).join('/');
+  // 打印文件路径和名称
+  console.log(`Uploaded file path: ${filePath}`);
   try {
     await pool.query('INSERT INTO products (name, type, description, price, stock, image_path) VALUES ($1, $2, $3, $4, $5, $6)', [product.name, product.type, product.description, product.price, product.stock, filePath]);
     res.status(201).send('Product added');
