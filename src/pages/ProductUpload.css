@@ -1,59 +1,73 @@
 .upload-container {
-    background-color: #D0F0FF;
-    padding: 20px;
-    border-radius: 5px;
-    width: 500px;
-    margin: 0 auto;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #D0F0FF;
+  padding: 20px;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.upload-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upload-container label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.upload-container input[type="text"],
+.upload-container input[type="number"] {
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  width: 95%;
+}
+
+.upload-container .dropzone {
+  padding: 20px;
+  border: 2px dashed #4299E1;
+  border-radius: 5px;
+  background-color: #F0FAFF;
+  text-align: center;
+  color: #4299E1;
+  cursor: pointer;
+}
+
+.upload-container input[type="submit"] {
+  background-color: #4299E1;
+  color: white;
+  border: none;
+  padding: 10px 0;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.upload-container input[type="submit"]:hover {
+  background-color: #2B6CB0;
+}
+
+.upload-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 媒体查询 */
+@media (max-width: 600px) {
+  .upload-container {
+      width: 80%;
+      margin-bottom: 150px;
   }
-  
-  .upload-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .upload-container label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
+
   .upload-container input[type="text"],
   .upload-container input[type="number"] {
-    padding: 10px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    width: 75%;
+      width: 90%;
   }
-  
-  .upload-container .dropzone {
-    padding: 20px;
-    border: 2px dashed #4299E1;
-    border-radius: 5px;
-    background-color: #F0FAFF;
-    text-align: center;
-    color: #4299E1;
-    cursor: pointer;
-  }
-  
-  .upload-container input[type="submit"] {
-    background-color: #4299E1;
-    color: white;
-    border: none;
-    padding: 10px 0;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .upload-container input[type="submit"]:hover {
-    background-color: #2B6CB0;
-  }
-  
-  .upload-container img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-  }
-  
+}
+

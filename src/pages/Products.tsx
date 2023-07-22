@@ -38,8 +38,12 @@ const Products = () => {
   };
   
   return (
-    <div className="products-container">
-      <h1>Products List</h1>
+    <div className='products-page'>
+      <div className='title'>
+        <h1>Products List</h1>
+      </div>
+       
+       <div className="products-container">
       {products.map((product) => (
         <div key={product.id} className="product-card">
           <h2>{product.name}</h2>
@@ -51,6 +55,8 @@ const Products = () => {
         </div>
       ))}
     </div>
+    </div>
+   
   );
   
 };

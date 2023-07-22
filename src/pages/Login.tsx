@@ -25,13 +25,13 @@ function Login() {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <label>
-          Username:
+          Username:&nbsp;
           <input type="text" value={username} onChange={handleUsernameChange} />
         </label>
         <label>
-          Password:
+          Password: &nbsp;
           <input type="password" value={password} onChange={handlePasswordChange} />
         </label>
         <input type="submit" value="Log In" />
